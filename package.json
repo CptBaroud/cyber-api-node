@@ -1,0 +1,46 @@
+{
+  "name": "backendcesimonplat",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "test": "snyk test"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "~1.4.4",
+    "csprng": "^0.1.2",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "express": "~4.16.1",
+    "express-jwt": "^6.1.0",
+    "express-mongo-sanitize": "^2.1.0",
+    "express-rate-limit": "^5.5.1",
+    "express-validator": "^6.11.1",
+    "helmet": "^4.6.0",
+    "jwks-rsa": "^2.0.5",
+    "log-beautify": "^1.2.0",
+    "moment": "^2.29.1",
+    "morgan": "~1.9.1",
+    "node-rsa": "^1.1.1",
+    "sequelize-msnodesqlv8": "^0.2.6-beta.8",
+    "socket.io": "^4.1.2",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6",
+    "tedious": "^11.0.9",
+    "winston": "^3.3.3",
+    "winston-array-transport": "^1.1.4",
+    "winston-mongodb": "^5.0.7",
+    "winston-transport": "^4.4.0"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "http-errors": "^1.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.1",
+    "nodemon": "^2.0.7",
+    "sequelize": "^6.11.0",
+    "snyk": "^1.790.0",
+    "socket-io": "^1.0.0"
+  }
+}
