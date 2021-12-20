@@ -32,7 +32,7 @@ module.exports = createLogger({
         new transports.MongoDB({
             level: 'info',
             //mongo database connection link
-            db: process.env.MONGODB_LINK,
+            db: process.env.MONGODB_WINSTON_LINK,
             options: MONGO_OPTION,
             // A collection to save json formatted logs
             collection: 'logs',
