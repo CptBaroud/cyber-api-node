@@ -7,6 +7,7 @@ const {text} = require("express");
 function encrypt(data, key) {
     // Si un des deux paramètres est vide on avorte l'opération
     if (!data || !key) return null
+    // On initl
     const INI_VECTOR = crypto.randomBytes(16)
     const ALGO = 'aes-256-cbc'
 
@@ -36,6 +37,35 @@ function decrypt(data, key) {
     decrypted = Buffer.concat([decrypted, decipher.final()])
 
     return decrypted.toString()
+}
+
+function rsaEncrypt(data, rsaPath) {
+    if (!data) return null
+
+    const RSA_PATH = rsaPath !== undefined ? rsaPath : 'keypair.key'
+    const RSA_KEY = fs.readFileSync(RSA_PATH).toString()
+
+    const KEY = new nodeRsa(RSA_KEY)
+    return KEY.encrypt(data, 'base64')
+}
+
+function rsaDecrypt(encryptedData, rsaPath) {
+    if (!encryptedData) return null
+
+    const RSA_PATH = rsaPath !== undefined ? rsaPath : 'keypair.key'
+    const RSA_KEY = fs.readFileSync(RSA_PATH).toString()
+
+    const KEY = new nodeRsa(RSA_KEY)
+    let decrypted = null
+
+    try {
+        decrypted = KEY.decrypt(encryptedData, 'utf-8')
+    } catch (e) {
+        console.log(e)
+        return null
+    }
+
+    return decrypted
 }
 
 function generateDiffieHellman () {
@@ -99,4 +129,4 @@ function generateDiffieHellmanKey (alice, bobPublicKey) {
     }
 }
 
-module.exports = { encrypt, aes256gcm, decrypt, generateDiffieHellman, generateDiffieHellmanKey }
+module.exports = { encrypt, aes256gcm, decrypt, rsaEncrypt, rsaDecrypt }

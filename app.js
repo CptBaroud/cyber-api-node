@@ -31,15 +31,6 @@ const WINSTON_LOGGER = require('./utils/log.utlis');
 
 if (process.env.DEV) {
     log.info(jwt.generatedToken())
-    const ALICE = crypt.generateDiffieHellman()
-    const BOB = crypt.generateDiffieHellman()
-
-    const SERVER_KEY = crypt.generateDiffieHellmanKey(ALICE, BOB.getPublicKey())
-    const FRONT_KEY = crypt.generateDiffieHellmanKey(BOB, ALICE.getPublicKey())
-    console.log(SERVER_KEY)
-
-    const aesCipher = crypt.aes256gcm(FRONT_KEY)
-    const encrypt = crypt.encrypt('BITe', BOB.getPublicKey())
 }
 
 // Mongodb connection
@@ -108,6 +99,6 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 const route = require('./routes/index')
 const {aes256gcm} = require("./utils/crypto.help");
 
-app.use(route)
+app.use('/api', route)
 
 module.exports = app;

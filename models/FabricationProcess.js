@@ -16,6 +16,6 @@ const FABRICATION_PROCESS_SCHEMA = new Schema({
     ]
 })
 
-const log = mongo.model('fabricationProcess', FABRICATION_PROCESS_SCHEMA)
+const fabricationProcess = mongo.model('fabricationProcess', FABRICATION_PROCESS_SCHEMA)
 
-module.exports = log
+module.exports = fabricationProcess

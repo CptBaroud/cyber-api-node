@@ -4,7 +4,7 @@ const { body } = require('express-validator');
 
 const router = express.Router();
 
-const frisbeeController = require('../controllers/FrisbeeController')
+const fabricationProcessController = require('../controllers/FabricationProcessController')
 // Auth middleware
 const {isAuthenticated} = require('../middleware/Authentification')
 
@@ -14,26 +14,23 @@ const corsOptions = {
 }
 
 router.get('/', [cors(corsOptions), isAuthenticated], function (req, res) {
-    frisbeeController.get(req, res)
+    fabricationProcessController.get(req, res)
 });
 
 router.post('/',
     body('nom').notEmpty().isString().trim(),
     body('description').notEmpty().isString().trim(),
-    body('gamme').notEmpty().isString().trim(),
-    body('puht').notEmpty().isNumeric(),
-    body('gramme').notEmpty().isNumeric(),
-    body('ingredients').notEmpty().isArray(),
+    body('validationTest').notEmpty().isArray(),
     [cors(corsOptions), isAuthenticated], function (req, res) {
-    frisbeeController.add(req, res)
-})
+        fabricationProcessController.add(req, res)
+    })
 
 router.put('/:id', [cors(corsOptions.options), isAuthenticated], function (req, res) {
-    frisbeeController.edit(req, res)
+    fabricationProcessController.edit(req, res)
 })
 
 router.delete('/:id', [cors(corsOptions.options), isAuthenticated], function (req, res) {
-    frisbeeController.delete(req, res)
+    fabricationProcessController.delete(req, res)
 })
 
 module.exports = router;

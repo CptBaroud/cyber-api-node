@@ -2,22 +2,23 @@ const fs = require('fs')
 const {validationResult} = require("express-validator");
 
 
-const frisbee = require('../models/Frisbee')
+const fabricationProcess = require('../models/FabricationProcess')
 const {sendData, sendError} = require("../utils/send.utils");
 const { rsaEncrypt, rsaDecrypt } = require("../utils/crypto.help");
+const {encryptObject} = require("../utils/help.utils");
 
-let frisbeeController = {
+let fabricationProcessController = {
 
     get(req, res) {
-        frisbee
+        fabricationProcess
             .find()
             .exec(function (err, doc) {
                 if (!err) {
-                    doc.map((frisbee) => {
+                    doc.map((fabricationProcess) => {
                         // On déchiffre les champs chiffré dans la base de données
-                        Object.keys(frisbee._doc).map((item) => {
+                        Object.keys(fabricationProcess._doc).map((item) => {
                             // Si le champ est chiffré on le déchiffre sinon on passe a l'élément suivant
-                            frisbee[item] = rsaDecrypt(frisbee[item])
+                            fabricationProcess[item] = rsaDecrypt(fabricationProcess[item])
                         })
                     })
                     sendData(res, doc)
@@ -31,16 +32,23 @@ let frisbeeController = {
         const errors = validationResult(req)
         if (!errors.isEmpty()) return sendError(res, 500, errors)
 
-        const NEW_FRISBEE = new frisbee({
-            nom: rsaEncrypt(req.body.nom),
-            description: rsaEncrypt(req.body.description),
-            puHT: rsaEncrypt(req.body.puht),
-            gramme: rsaEncrypt(req.body.gramme),
-            gamme: rsaEncrypt(req.body.gamme),
-            ingredients: req.body.ingredients
+        Object.keys(req.body).map((item) => {
+            if (item !== 'validationTest') {
+                req.body[item] = rsaEncrypt(req.body[item])
+            } else if (item === 'validationTest') {
+                req.body[item].forEach((vldProcess, i) => {
+                    req.body[item][i] = encryptObject(vldProcess)
+                })
+            }
         })
 
-        NEW_FRISBEE
+        const NEW_FABRICATION_PROCESS = new fabricationProcess({
+            nom: req.body.nom,
+            description: req.body.description,
+            validationTest: req.body.validationTest
+        })
+
+        NEW_FABRICATION_PROCESS
             .save(function (err, doc) {
                 if (!err) {
                     sendData(res, doc)
@@ -63,7 +71,7 @@ let frisbeeController = {
             item !== 'ingredients' ? req.body[item] = rsaEncrypt(req.body[item]) : req.body[item] = req.body[item]
         })
 
-        frisbee
+        fabricationProcess
             .findByIdAndUpdate({_id: req.params.id},
                 {$set: req.body},
                 {useFindAndModify: false, new: true})
@@ -77,14 +85,14 @@ let frisbeeController = {
     },
 
     /**
-     * Delete une frisbee
+     * Delete une fabricationProcess
      * @param req
      * @param res
      */
     delete(req, res) {
         const id = req.params.id
 
-        frisbee
+        fabricationProcess
             .findByIdAndDelete({_id: req.params.id})
             .exec(function (err, doc) {
                 if (!err) {
@@ -96,4 +104,4 @@ let frisbeeController = {
     }
 }
 
-module.exports = frisbeeController
+module.exports = fabricationProcessController

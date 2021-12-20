@@ -1,6 +1,7 @@
 const fs = require("fs");
 const ObjectId = require('mongoose').Types.ObjectId;
 const crypto = require('crypto');
+const {rsaEncrypt} = require("./crypto.help");
 
 // Validator function
 function isValidObjectId(id){
@@ -76,4 +77,15 @@ async function deleteFile(user) {
     }
 }
 
-module.exports = { isValidObjectId, uploadFile, deleteFile, randomValueHex }
+function encryptObject (object, exclusionArray) {
+    if (!object) return null
+    const ARRAY = exclusionArray ? exclusionArray : []
+
+    Object.keys(object).map((item) => {
+        !ARRAY.includes(item) ? object[item] = rsaEncrypt(object[item]) : null
+    })
+
+    return object
+}
+
+module.exports = { isValidObjectId, uploadFile, deleteFile, randomValueHex, encryptObject }

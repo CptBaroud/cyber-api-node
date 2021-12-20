@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const router = express.Router();
 
-const logController = require('../controllers/Log')
+const logController = require('../controllers/LogController')
 // Auth middleware
 const {isAuthenticated} = require('../middleware/Authentification')
 

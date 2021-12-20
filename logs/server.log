@@ -14,3 +14,24 @@ error: Dec-10-2021 14:21:25: 	Erreur de connexion a SQL Server
 error: Dec-10-2021 14:21:25: 	undefined
 error: Dec-10-2021 14:22:26: 	Erreur de connexion a SQL Server
 error: Dec-10-2021 14:22:26: 	undefined
+error: Dec-20-2021 10:10:30: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+error: Dec-20-2021 10:14:39: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+error: Dec-20-2021 10:18:43: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+error: Dec-20-2021 10:19:08: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+error: Dec-20-2021 10:19:26: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+error: Dec-20-2021 10:19:41: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+info: Dec-20-2021 10:26:37: 	User gurvan.seveno@gmail.com (role:undefined) connected from undefined
+info: Dec-20-2021 10:27:07: 	User gurvan.seveno@gmail.com (role:undefined) connected from undefined
+error: Dec-20-2021 11:16:46: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+error: Dec-20-2021 11:17:09: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+error: Dec-20-2021 11:17:31: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+error: Dec-20-2021 13:29:49: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+error: Dec-20-2021 13:33:37: 	User gurvan.seveno@gmail.com) tried to connect from undefined with incorrect mail
+info: Dec-20-2021 13:38:51: 	User gurvan.seveno@gmail.com connected from undefined
+info: Dec-20-2021 13:45:43: 	User gurvan.seveno@gmail.com connected from undefined
+info: Dec-20-2021 13:45:47: 	User gurvan.seveno@gmail.com connected from undefined
+info: Dec-20-2021 13:45:48: 	User gurvan.seveno@gmail.com connected from undefined
+info: Dec-20-2021 13:45:49: 	User gurvan.seveno@gmail.com connected from undefined
+info: Dec-20-2021 13:45:49: 	User gurvan.seveno@gmail.com connected from undefined
+info: Dec-20-2021 13:45:50: 	User gurvan.seveno@gmail.com connected from undefined
+info: Dec-20-2021 14:22:47: 	User gurvan.seveno@gmail.com connected from undefined

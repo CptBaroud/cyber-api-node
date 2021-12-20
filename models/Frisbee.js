@@ -4,8 +4,9 @@ const mongo = require('mongoose')
 const FRISBEE_SCHEMA = new Schema({
     nom: String,
     description: String,
-    puHT: Number,
-    gramme: Number,
+    gamme: String,
+    puHT: String,
+    gramme: String,
     ingredients: [
         {
             type: mongo.ObjectId,

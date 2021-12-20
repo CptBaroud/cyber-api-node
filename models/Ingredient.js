@@ -7,6 +7,6 @@ const INGREDIENT_SCHEMA = new Schema({
     gramme: Number
 })
 
-const log = mongo.model('ingredient', INGREDIENT_SCHEMA)
+const ingredients = mongo.model('ingredient', INGREDIENT_SCHEMA)
 
-module.exports = log
+module.exports = ingredients

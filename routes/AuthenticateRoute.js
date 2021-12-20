@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const router = express.Router();
 
-const authController = require('../controllers/Authentification')
+const authController = require('../controllers/AuthentificationController')
 
 
 const corsOptions = {

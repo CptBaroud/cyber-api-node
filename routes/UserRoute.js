@@ -3,7 +3,7 @@ const cors = require('cors')
 const router = express.Router();
 const {body} = require('express-validator');
 
-const userController = require('../controllers/User')
+const userController = require('../controllers/UserController')
 // Auth middleware
 const {isAuthenticated} = require('../middleware/Authentification')
 
@@ -16,14 +16,6 @@ const corsOptions = {
 // GET
 router.get('/', [cors(corsOptions), isAuthenticated], function (req, res) {
     userController.get(req, res)
-});
-
-router.get('/test', [cors(corsOptions), isAuthenticated], function (req, res) {
-    userController.testAlgo(req, res)
-});
-
-router.get('/getUser', [cors(corsOptions), isAuthenticated], function (req, res) {
-    userController.getUser(req, res)
 });
 
 router.get('/:id', [cors(corsOptions), isAuthenticated], function (req, res) {

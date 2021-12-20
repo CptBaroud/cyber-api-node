@@ -41,7 +41,8 @@ let userController = {
     getOne (req, res) {
         const id = req.params.id
 
-        user.findOne({ where: {id: id} })
+        user
+            .findOne({ where: {id: id} })
             .then(user => {
                 //Si on arrive pas à récupérer la clé chiffré de chiffrement on renvoie une erreur
                 if (!user.encryptedKey) return send.sendError(res, 500, 'Key not found')
@@ -91,7 +92,7 @@ let userController = {
                     if (err) {
                         send.sendError(res, 500, err)
                     } else {
-                        NEW_USER.encryptedKey = crypto.encrypt(KEY_1, pswd)
+                        NEW_USER.encryptedKey = encrypt(KEY_1, pswd)
                         NEW_USER.password = pswd
                         user
                             .create(NEW_USER)
@@ -107,32 +108,11 @@ let userController = {
         })
     },
 
-    /**
-     * Pour l'authentification de Nuxt
-     * NE PAS MODIFIER
-     * @param req  la requete envoyée
-     * @param res  la reponse que retourne l'API
-     *
-     * Renvoie les infos de l'utilisateur
-     */
-    getUser(req, res) {
-        let data = jwt.decode(req.headers.authorization.replace('Bearer ', ''))
-        /*if (Date.now() >= data.exp * 1000) {
-            send.sendError(res, 500,  'Le token n\'est plus valide')
-        }*/
-
-        user
-            .findOne({where: {email: data.mail}})
-            .then(user => {
-                send.sendData(res, {user: user})
-            })
-    },
-
     async delete(req, res) {
         const id = req.params.id
-        let userTemp = await user.findOne({where: {id: id}})
+        let userTemp = await userController.findOne({where: {id: id}})
 
-        userTemp
+        user
             .destroy()
             .then(doc => {
                 send.sendData(res, doc)
@@ -144,7 +124,7 @@ let userController = {
 
     async edit(req, res) {
         const id = req.params.id
-        let userTemp = await user.findOne({where: {id: id}})
+        let userTemp = await userController.findOne({where: {id: id}})
 
         Object.entries(req.body).forEach(([key, item])=> {
             userTemp[key] = item
