@@ -2,6 +2,20 @@ const {createLogger, format, transports} = require('winston');
 require('winston-mongodb');
 require('dotenv').config()
 
+// Mongodb connection
+const MONGO_OPTION = process.env.DEV ?
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    } : {
+        auth: {
+            authSource: 'admin'
+        },
+        user: process.env.MONGODB_LOGIN,
+        password: process.env.MONGODB_PSWD
+    }
+
+
 module.exports = createLogger({
     transports: [
         // File transport
@@ -19,9 +33,7 @@ module.exports = createLogger({
             level: 'info',
             //mongo database connection link
             db: process.env.MONGODB_LINK,
-            options: {
-                useUnifiedTopology: true
-            },
+            options: MONGO_OPTION,
             // A collection to save json formatted logs
             collection: 'logs',
             format: format.combine(
