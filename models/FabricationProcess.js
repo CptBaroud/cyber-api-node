@@ -6,7 +6,7 @@ const FABRICATION_PROCESS_SCHEMA = new Schema({
     description: String,
     frisbee: {
         type: mongo.ObjectId,
-        ref: 'frisbe'
+        ref: 'frisbee'
     },
     validationTest: [
         {

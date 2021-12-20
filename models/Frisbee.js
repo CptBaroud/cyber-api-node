@@ -15,6 +15,6 @@ const FRISBEE_SCHEMA = new Schema({
     ]
 })
 
-const log = mongo.model('frisbee', FRISBEE_SCHEMA)
+const frisbee = mongo.model('frisbee', FRISBEE_SCHEMA)
 
-module.exports = log
+module.exports = frisbee

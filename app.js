@@ -34,8 +34,20 @@ if (process.env.DEV) {
 }
 
 // Mongodb connection
+const MONGO_OPTION = process.env.DEV ?
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    } : {
+        auth: {
+            authSource: 'admin'
+        },
+        user: process.env.MONGODB_LOGIN,
+        password: process.env.MONGODB_PSWD
+    }
+
 mongo
-    .connect(process.env.MONGODB_LINK, {useNewUrlParser: true, useUnifiedTopology: true})
+    .connect(process.env.MONGODB_LINK, MONGO_OPTION)
     .then(() => {
         log.ok('Connexion a mongodb')
     })
