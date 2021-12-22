@@ -4,7 +4,7 @@ const mongo = require('mongoose')
 const INGREDIENT_SCHEMA = new Schema({
     nom: String,
     description: String,
-    gramme: Number
+    gramme: String
 })
 
 const ingredients = mongo.model('ingredient', INGREDIENT_SCHEMA)

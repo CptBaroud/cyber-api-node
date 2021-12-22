@@ -1,23 +1,34 @@
 const fs = require('fs')
 const {validationResult} = require("express-validator");
 
+const EXCLUSION_ARRAY = ['_id', 'ingredient', '__v']
 
 const frisbee = require('../models/Frisbee')
 const {sendData, sendError} = require("../utils/send.utils");
 const { rsaEncrypt, rsaDecrypt } = require("../utils/crypto.help");
+const {decryptObject} = require("../utils/help.utils");
 
 let frisbeeController = {
 
     get(req, res) {
         frisbee
             .find()
+            .populate('ingredients')
             .exec(function (err, doc) {
                 if (!err) {
                     doc.map((frisbee) => {
                         // On déchiffre les champs chiffré dans la base de données
-                        Object.keys(frisbee._doc).map((item) => {
-                            // Si le champ est chiffré on le déchiffre sinon on passe a l'élément suivant
-                            frisbee[item] = rsaDecrypt(frisbee[item])
+                        Object.keys(frisbee._doc).map((key) => {
+                            console.log(key)
+                            if (!EXCLUSION_ARRAY.includes(key)) {
+                                // Si le champ est chiffré on le déchiffre sinon on passe a l'élément suivant
+                                frisbee[key] = rsaDecrypt(frisbee[key])
+                            } else if (key === 'ingredients') {
+                                console.log(frisbee[key][i])
+                                frisbee[key].forEach((ingredient, i) => {
+                                    frisbee[key][i] = decryptObject(ingredient._doc, ['_id'])
+                                })
+                            }
                         })
                     })
                     sendData(res, doc)
