@@ -19,7 +19,7 @@ const rateLimit = require('express-rate-limit')
 
 // Helpers non utiles (Uniquement en DEV)
 const jwt = require('./utils/jwt.utils')
-const crypt = require('./utils/crypto.help')
+
 // Génération de la doc
 const swaggerUi = require('swagger-ui-express');
 
