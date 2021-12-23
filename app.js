@@ -1,6 +1,8 @@
 const mongo = require("mongoose");
 const express = require('express');
 
+//TODO ajouter un loggin solide file + DB
+
 // Ne sert pas encore
 // TODO à voir si on l'implemente
 const expressJwt = require('express-jwt');
