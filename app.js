@@ -29,7 +29,7 @@ const swaggerUi = require('swagger-ui-express');
 require('dotenv').config()
 
 // Require logger.js
-const WINSTON_LOGGER = require('./utils/log.utlis');
+// const WINSTON_LOGGER = require('./utils/log.utlis');
 
 if (process.env.DEV) {
     log.info(jwt.generatedToken())
@@ -72,8 +72,8 @@ SQLDB.authenticate()
     .catch((error) => {
         console.error(error)
         log.error(error)
-        WINSTON_LOGGER.error('Erreur de connexion a SQL Server')
-        WINSTON_LOGGER.error(error)
+        // WINSTON_LOGGER.error('Erreur de connexion a SQL Server')
+        // WINSTON_LOGGER.error(error)
     })
 
 const app = express();
