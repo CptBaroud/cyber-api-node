@@ -29,7 +29,7 @@ const swaggerUi = require('swagger-ui-express');
 require('dotenv').config()
 
 // Require logger.js
-// const WINSTON_LOGGER = require('./utils/log.utlis');
+const WINSTON_LOGGER = require('./utils/log.utlis');
 
 if (process.env.DEV) {
     log.info(jwt.generatedToken())
@@ -49,20 +49,18 @@ const MONGO_OPTION = process.env.DEV ?
         user: process.env.MONGODB_LOGIN,
         password: process.env.MONGODB_PSWD
     }
-console.log(process.env.MONGODB_LINK)
-console.log(MONGO_OPTION)
 
 mongo
     .connect(process.env.MONGODB_LINK, MONGO_OPTION, (err) => {
         if (!err) {
             log.ok('Connexion a mongodb')
         } else {
-            console.log(process.env.MONGODB_LINK)
-            console.error('App.js')
-            console.error(err)
             log.error(err)
         }
     })
+
+const mongoose = require('mongoose');
+console.log(mongoose.connection.readyState);
 
 // On doit attendre que le .env soit load
 const SQLDB = require("./db/db.sql");
@@ -72,10 +70,9 @@ SQLDB.authenticate()
         log.ok('Connexion a SQL Server')
     })
     .catch((error) => {
-        console.error(error)
         log.error(error)
-        // WINSTON_LOGGER.error('Erreur de connexion a SQL Server')
-        // WINSTON_LOGGER.error(error)
+        WINSTON_LOGGER.error('Erreur de connexion a SQL Server')
+        WINSTON_LOGGER.error(error)
     })
 
 const app = express();
