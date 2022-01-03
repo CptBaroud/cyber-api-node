@@ -51,14 +51,12 @@ const MONGO_OPTION = process.env.DEV ?
     }
 
 mongo
-    .connect(process.env.MONGODB_LINK, MONGO_OPTION)
-    .then(() => {
-        log.ok('Connexion a mongodb')
-    })
-    .catch((error) => {
-        log.error(error)
-        WINSTON_LOGGER.error('Erreur de connexion a mongodb')
-        WINSTON_LOGGER.error(error)
+    .connect(process.env.MONGODB_LINK, MONGO_OPTION, (err) => {
+        if (!err) {
+            log.ok('Connexion a mongodb')
+        } else {
+            log.error(err)
+        }
     })
 
 // On doit attendre que le .env soit load
