@@ -49,6 +49,8 @@ const MONGO_OPTION = process.env.DEV ?
         user: process.env.MONGODB_LOGIN,
         password: process.env.MONGODB_PSWD
     }
+console.log(process.env.MONGODB_LINK)
+console.log(MONGO_OPTION)
 
 mongo
     .connect(process.env.MONGODB_LINK, MONGO_OPTION, (err) => {
