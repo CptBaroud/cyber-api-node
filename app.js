@@ -57,6 +57,7 @@ mongo
         } else {
             console.log(process.env.MONGODB_LINK)
             console.error('App.js')
+            console.error(err)
             log.error(err)
         }
     })
