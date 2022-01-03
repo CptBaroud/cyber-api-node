@@ -41,6 +41,8 @@ const MONGO_OPTION = process.env.DEV ?
         useNewUrlParser: true,
         useUnifiedTopology: true
     } : {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
         auth: {
             authSource: 'admin'
         },
