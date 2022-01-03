@@ -1,6 +1,8 @@
 const mongo = require("mongoose");
 const express = require('express');
 
+//TODO ajouter un loggin solide file + DB
+
 // Ne sert pas encore
 // TODO à voir si on l'implemente
 const expressJwt = require('express-jwt');
@@ -19,7 +21,7 @@ const rateLimit = require('express-rate-limit')
 
 // Helpers non utiles (Uniquement en DEV)
 const jwt = require('./utils/jwt.utils')
-const crypt = require('./utils/crypto.help')
+
 // Génération de la doc
 const swaggerUi = require('swagger-ui-express');
 
