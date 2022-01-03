@@ -55,6 +55,8 @@ mongo
         if (!err) {
             log.ok('Connexion a mongodb')
         } else {
+            console.log(process.env.MONGODB_LINK)
+            console.error('App.js')
             log.error(err)
         }
     })

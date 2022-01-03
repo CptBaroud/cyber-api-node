@@ -2,7 +2,7 @@ const {createLogger, format, transports} = require('winston');
 require('winston-mongodb');
 require('dotenv').config()
 
-// Mongodb connection
+// Mongodb connection options
 const MONGO_OPTION = process.env.DEV ?
     {
         useNewUrlParser: true,
