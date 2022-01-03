@@ -4,7 +4,7 @@ const {validationResult} = require("express-validator");
 const EXCLUSION_ARRAY = ['_id', 'ingredient', '__v']
 
 const frisbee = require('../models/Frisbee')
-const {sendData, sendError} = require("../utils/send.utils");
+const {sendData,  sendError}  = require("../utils/send.utils");
 const { rsaEncrypt, rsaDecrypt } = require("../utils/crypto.help");
 const {decryptObject} = require("../utils/help.utils");
 
@@ -31,16 +31,16 @@ let frisbeeController = {
                             }
                         })
                     })
-                    sendData(res, doc)
+                    sendData(req, res, doc)
                 } else {
-                    sendError(res, 500, err)
+                    sendError(req, res, 500, err)
                 }
             })
     },
 
     add(req, res) {
         const errors = validationResult(req)
-        if (!errors.isEmpty()) return sendError(res, 500, errors)
+        if (!errors.isEmpty()) return sendError(req, res, 500, errors)
 
         const NEW_FRISBEE = new frisbee({
             nom: rsaEncrypt(req.body.nom),
@@ -54,9 +54,9 @@ let frisbeeController = {
         NEW_FRISBEE
             .save(function (err, doc) {
                 if (!err) {
-                    sendData(res, doc)
+                    sendData(req, res, doc)
                 } else {
-                    sendError(res, 500, err)
+                    sendError(req, res, 500, err)
                 }
             })
     },
@@ -80,9 +80,9 @@ let frisbeeController = {
                 {useFindAndModify: false, new: true})
             .exec(function (err, doc) {
                 if (!err) {
-                    return sendData(res, doc)
+                    return sendData(req, res, doc)
                 } else {
-                    return sendError(res, 500, err)
+                    return sendError(req, res, 500, err)
                 }
             })
     },
@@ -99,9 +99,9 @@ let frisbeeController = {
             .findByIdAndDelete({_id: req.params.id})
             .exec(function (err, doc) {
                 if (!err) {
-                    return sendData(res, doc)
+                    return sendData(req, res, doc)
                 } else {
-                    return sendError(res, 500, err)
+                    return sendError(req, res, 500, err)
                 }
             })
     }

@@ -12,9 +12,9 @@ let logController = {
             .find()
             .exec(function (err, doc) {
                 if (!err) {
-                    send.sendData(res, doc)
+                    send.sendData(req, res, doc)
                 } else {
-                    send.sendError(res, 500, err)
+                    send.sendError(req, res, 500, err)
                 }
             })
     }

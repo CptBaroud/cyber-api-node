@@ -4,7 +4,7 @@ const rand = require('csprng')
 const {validationResult} = require("express-validator");
 
 const user = require('../models/User')
-const send = require('../utils/send.utils')
+const { sendData,  sendError } = require("../utils/send.utils");
 const jwt_utils = require('../utils/jwt.utils')
 const { encrypt, decrypt } = require('../utils/crypto.help')
 
@@ -31,10 +31,10 @@ let userController = {
                     })
                 })
                 // On renvoi les utilisateurs
-                send.sendData(res, users)
+                sendData(req, res, users)
             })
             .catch(err => {
-                send.sendError(res, 500, err)
+                sendError(req, res, 500, err)
             })
     },
 
@@ -55,22 +55,22 @@ let userController = {
                     USER_ENCRYPTED_FIELDS.includes(item) ? user[item] = decrypt(user[item], decryptedKey) : null
                 })
                 // On renvoi les utilisateurs
-                send.sendData(res, user)
+                sendData(req, res, user)
             })
             .catch(err => {
-                send.sendError(res, 500, err)
+                sendError(req, res, 500, err)
             })
     },
 
     async create(req, res) {
         const errors = validationResult(req)
-        if (!errors.isEmpty()) return send.sendError(res, 500, errors)
+        if (!errors.isEmpty()) return sendError(res, 500, errors)
 
 
         const FETCH_USER =  null // await user.findOne({where: {email: req.body.email}})
 
         if (FETCH_USER) {
-            return send.sendError(res, 409, {message: 'This email is already used'})
+            return sendError(req, res, 409, {message: 'This email is already used'})
         }
 
         const KEY_1 = rand(256, 36)
@@ -86,21 +86,21 @@ let userController = {
         // On hash le mot de passe
         bcrypt.genSalt(SALT_ROUND, function (err, salt) {
             if (err) {
-                send.sendError(res, 500, err)
+                sendError(req, res, 500, err)
             } else {
                 bcrypt.hash(NEW_USER.password, salt, function (err, pswd) {
                     if (err) {
-                        send.sendError(res, 500, err)
+                        sendError(req, res, 500, err)
                     } else {
                         NEW_USER.encryptedKey = encrypt(KEY_1, pswd)
                         NEW_USER.password = pswd
                         user
                             .create(NEW_USER)
                             .then(user => {
-                                send.sendData(res, user)
+                                sendData(req, res, user)
                             })
                             .catch(err => {
-                                send.sendError(res, 500, err)
+                                sendError(req, res, 500, err)
                             })
                     }
                 })
@@ -115,10 +115,10 @@ let userController = {
         user
             .destroy()
             .then(doc => {
-                send.sendData(res, doc)
+                sendData(req, res, doc)
             })
             .catch(error => {
-                send.sendError(res, 500, error)
+                sendError(req, res, 500, error)
             })
     },
 
@@ -133,10 +133,10 @@ let userController = {
         userTemp
             .save()
             .then(doc => {
-                send.sendData(res, doc)
+                sendData(req, res, doc)
             })
             .catch(error => {
-                send.sendError(res, 500, error)
+                sendError(req, res, 500, error)
             })
     }
 }

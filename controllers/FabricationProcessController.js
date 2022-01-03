@@ -4,7 +4,7 @@ const {validationResult} = require("express-validator");
 const EXCLUSION_ARRAY = ['_id', 'frisbee', 'validationTest']
 
 const fabricationProcess = require('../models/FabricationProcess')
-const { sendData, sendError } = require("../utils/send.utils");
+const { sendData,  sendError } = require("../utils/send.utils");
 const { rsaEncrypt, rsaDecrypt } = require("../utils/crypto.help");
 const { encryptObject, decryptObject } = require("../utils/help.utils");
 
@@ -60,9 +60,9 @@ let fabricationProcessController = {
                             }
                         })
                     })
-                    return sendData(res, doc)
+                    return sendData(req, res, doc)
                 } else {
-                    return sendError(res, 500, err)
+                    return sendError(req, res, 500, err)
                 }
             })
     },
@@ -91,7 +91,7 @@ let fabricationProcessController = {
         NEW_FABRICATION_PROCESS
             .save(function (err, doc) {
                 if (!err) {
-                    sendData(res, doc)
+                    sendData(req, res, doc)
                 } else {
                     sendError(res, 500, err)
                 }
@@ -120,7 +120,7 @@ let fabricationProcessController = {
                 {useFindAndModify: false, new: true})
             .exec(function (err, doc) {
                 if (!err) {
-                    return sendData(res, doc)
+                    return sendData(req, res, doc)
                 } else {
                     return sendError(res, 500, err)
                 }
@@ -139,7 +139,7 @@ let fabricationProcessController = {
             .findByIdAndDelete({_id: req.params.id})
             .exec(function (err, doc) {
                 if (!err) {
-                    return sendData(res, doc)
+                    return sendData(req, res, doc)
                 } else {
                     return sendError(res, 500, err)
                 }

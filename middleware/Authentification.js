@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 const fs = require("fs");
 
+const logger = require('../utils/log.utlis')
+
 /**
  * Middleware verifiant la validité d'un token
  * @param req - la requete envoyée
@@ -9,15 +11,29 @@ const fs = require("fs");
  * @returns {this} - soit un 404 ou laisse l'API continuer
  */
 function isAuthenticated(req, res, next) {
+    // On récupere l'origine de la requete
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+
+    // On récupère le token dans les headers
     const token = getToken(req, res)
+
+    // On charge la clée publique
     const PUBLIC_KEY = fs.readFileSync('publickey.crt')
+
     // On verifie la validité du token
     jwt.verify(token, PUBLIC_KEY, (err) => {
         // Si la verification échoue on renvoie un 404
         // Et on print dans la console le message d'erreurs
         if (err) {
+            logger.error({
+                message: 'Invalid Token',
+                token: token,
+                ip,
+                error: err
+            })
             return res.status(404).send({
                 message: 'Invalid Token',
+                token: token,
                 error: err,
                 stack: err.stack
             })

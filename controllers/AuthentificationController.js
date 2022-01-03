@@ -54,7 +54,7 @@ let authentificationController = {
                      if (result) {
                          // Si les infos sont bonnes et qu'on peut connecter l'utilisateur
                          logger.info('User ' + data.email +  ' connected from ' + origin)
-                         send.sendData(res, {token : jwt.generatedToken()})
+                         send.sendData(req, res, {token : jwt.generatedToken()})
                      } else {
                          logger.error('User ' + data.email + ' tried to connect from ' + origin + ' with incorrect password')
                          res.status(401).json({

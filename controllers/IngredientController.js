@@ -3,7 +3,7 @@ const {validationResult} = require("express-validator");
 
 
 const ingredient = require('../models/Ingredient')
-const {sendData, sendError} = require("../utils/send.utils");
+const {sendData,  sendError} = require("../utils/send.utils");
 const { rsaEncrypt, rsaDecrypt } = require("../utils/crypto.help");
 
 let ingredientController = {
@@ -20,16 +20,16 @@ let ingredientController = {
                             ingredient[item] = rsaDecrypt(ingredient[item])
                         })
                     })
-                    sendData(res, doc)
+                    sendData(req, res, doc)
                 } else {
-                    sendError(res, 500, err)
+                    sendError(req, res, 500, err)
                 }
             })
     },
 
     add(req, res) {
         const errors = validationResult(req)
-        if (!errors.isEmpty()) return sendError(res, 500, errors)
+        if (!errors.isEmpty()) return sendError(req, res, 500, errors)
 
         const NEW_INGREDIENT = new ingredient({
             nom: rsaEncrypt(req.body.nom),
@@ -40,9 +40,9 @@ let ingredientController = {
         NEW_INGREDIENT
             .save(function (err, doc) {
                 if (!err) {
-                    sendData(res, doc)
+                    sendData(req, res, doc)
                 } else {
-                    sendError(res, 500, err)
+                    sendError(req, res, 500, err)
                 }
             })
     },
@@ -66,9 +66,9 @@ let ingredientController = {
                 {useFindAndModify: false, new: true})
             .exec(function (err, doc) {
                 if (!err) {
-                    return sendData(res, doc)
+                    return sendData(req, res, doc)
                 } else {
-                    return sendError(res, 500, err)
+                    return sendError(req, res, 500, err)
                 }
             })
     },
@@ -85,9 +85,9 @@ let ingredientController = {
             .findByIdAndDelete({_id: req.params.id})
             .exec(function (err, doc) {
                 if (!err) {
-                    return sendData(res, doc)
+                    return sendData(req, res, doc)
                 } else {
-                    return sendError(res, 500, err)
+                    return sendError(req, res, 500, err)
                 }
             })
     }
