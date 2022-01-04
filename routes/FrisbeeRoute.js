@@ -28,7 +28,14 @@ router.post('/',
     frisbeeController.add(req, res)
 })
 
-router.put('/:id', [cors(corsOptions.options), isAuthenticated], function (req, res) {
+router.put('/:id',
+    body('nom').notEmpty().isString().trim(),
+    body('description').notEmpty().isString().trim(),
+    body('gamme').notEmpty().isString().trim(),
+    body('puht').notEmpty().isNumeric(),
+    body('gramme').notEmpty().isNumeric(),
+    body('ingredients').notEmpty().isArray(),
+    [cors(corsOptions.options), isAuthenticated], function (req, res) {
     frisbeeController.edit(req, res)
 })
 

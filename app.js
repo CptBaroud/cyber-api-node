@@ -113,8 +113,6 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // On load toutes les routes
 const route = require('./routes/index')
-const {aes256gcm} = require("./utils/crypto.help");
-
 app.use('/api', route)
 
 module.exports = app;

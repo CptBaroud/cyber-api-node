@@ -25,7 +25,11 @@ router.post('/',
         fabricationProcessController.add(req, res)
     })
 
-router.put('/:id', [cors(corsOptions.options), isAuthenticated], function (req, res) {
+router.put('/:id',
+    body('nom').notEmpty().isString().trim(),
+    body('description').notEmpty().isString().trim(),
+    body('validationTest').notEmpty().isArray(),
+    [cors(corsOptions.options), isAuthenticated], function (req, res) {
     fabricationProcessController.edit(req, res)
 })
 

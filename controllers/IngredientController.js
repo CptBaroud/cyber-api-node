@@ -53,7 +53,10 @@ let ingredientController = {
      * @param res
      */
     edit(req, res) {
-        console.log(typeof req.body)
+        // On check le body
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) return sendError(req, res, 500, errors)
+
         // On commence par chiffré le body
         Object.keys(req.body).map((item) => {
             // Si le champ est chiffré on le déchiffre sinon on passe a l'élément suivant

@@ -25,7 +25,11 @@ router.post('/',
         ingredientController.add(req, res)
     })
 
-router.put('/:id', [cors(corsOptions.options), isAuthenticated], function (req, res) {
+router.put('/:id',
+    body('nom').notEmpty().isString().trim(),
+    body('description').notEmpty().isString().trim(),
+    body('gramme').notEmpty().isNumeric(),
+    [cors(corsOptions.options), isAuthenticated], function (req, res) {
     ingredientController.edit(req, res)
 })
 

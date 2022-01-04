@@ -69,7 +69,7 @@ let fabricationProcessController = {
 
     add(req, res) {
         const errors = validationResult(req)
-        if (!errors.isEmpty()) return sendError(res, 500, errors)
+        if (!errors.isEmpty()) return sendError(req, res, 500, errors)
 
         Object.keys(req.body).map((item) => {
             if (!EXCLUSION_ARRAY.includes(item)) {
@@ -104,6 +104,9 @@ let fabricationProcessController = {
      * @param res
      */
     edit(req, res) {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) return sendError(req, res, 500, errors)
+
         Object.keys(req.body).map((item) => {
             if (item !== 'validationTest') {
                 req.body[item] = rsaEncrypt(req.body[item])

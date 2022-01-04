@@ -67,7 +67,7 @@ let userController = {
         if (!errors.isEmpty()) return sendError(res, 500, errors)
 
 
-        const FETCH_USER =  null // await user.findOne({where: {email: req.body.email}})
+        const FETCH_USER = await user.findOne({where: {email: req.body.email}})
 
         if (FETCH_USER) {
             return sendError(req, res, 409, {message: 'This email is already used'})

@@ -1,6 +1,6 @@
 const user = require('../models/User')
 const bcrypt = require("bcrypt");
-const send = require('../utils/send.utils')
+const { sendData, sendError } = require('../utils/send.utils')
 const jwt = require('../utils/jwt.utils')
 const logger = require('../utils/log.utlis');
 const log = require('../models/Log');
@@ -29,7 +29,7 @@ let authentificationController = {
              })
              .catch((error) => {
                  console.log(error)
-                 return send.sendError(res, 500, error)
+                 return sendError(req, res, 500, error)
              })
 
         // On dechiffre les mails afin de pouvoir chercher celui qui essaye de se connecter
@@ -49,15 +49,15 @@ let authentificationController = {
          if (USER_INDEX !== -1) {
              bcrypt.compare(req.body.password, allUsers[USER_INDEX].password, function (error, result) {
                  if (error) {
-                     send.sendError(res, 500, error)
+                     sendError(req, res, 500, error)
                  } else {
                      if (result) {
                          // Si les infos sont bonnes et qu'on peut connecter l'utilisateur
                          logger.info('User ' + data.email +  ' connected from ' + origin)
-                         send.sendData(req, res, {token : jwt.generatedToken()})
+                         sendData(req, res, {token : jwt.generatedToken()})
                      } else {
                          logger.error('User ' + data.email + ' tried to connect from ' + origin + ' with incorrect password')
-                         res.status(401).json({
+                         sendError(req, res, 500, {
                              message: 'Le mot de passe est incorrect',
                              error: error
                          })
@@ -65,9 +65,10 @@ let authentificationController = {
                  }
              })
          } else {
-              res.status(401).json({
-                  message: 'Le mail est incorrect'
-              })
+             sendError(req, res, 500, {
+                 message: 'Le mail est incorrect ou n\'est lié à aucuns compte',
+                 error: error
+             })
               logger.error('User ' + data.email + ') tried to connect from ' + origin + ' with incorrect mail')
           }
      }

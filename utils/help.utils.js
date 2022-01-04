@@ -93,7 +93,6 @@ function decryptObject (object, exclusionArray) {
     const ARRAY = exclusionArray ? exclusionArray : []
 
     Object.keys(object).map((item) => {
-        console.log(item)
         !ARRAY.includes(item) ? object[item] = rsaDecrypt(object[item]) : null
     })
 

@@ -2,7 +2,8 @@ const fs = require("fs");
 const crypto = require('crypto');
 const buffer = require('buffer');
 const nodeRsa = require('node-rsa')
-const {text} = require("express");
+
+const logger = require('../utils/log.utlis')
 
 function encrypt(data, key) {
     // Si un des deux paramètres est vide on avorte l'opération
@@ -61,7 +62,10 @@ function rsaDecrypt(encryptedData, rsaPath) {
     try {
         decrypted = KEY.decrypt(encryptedData, 'utf-8')
     } catch (e) {
-        console.log(e)
+        logger.error({
+            message: 'Une erreur est survenue lors du dechiffrage des données RSA',
+            error: e
+        })
         return null
     }
 

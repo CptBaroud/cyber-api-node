@@ -15,6 +15,7 @@ let send = {
                 logger.actions({
                     message: ip + ' à ' + getActionVerb(req.method) + ' un ' + getObjectName(object),
                     id: req.params.id ? req.params.id : req.body._id,
+                    type: getActionType(req.method),
                     objet: req.baseUrl.replace('/api/', ''),
                     originalUrl: req.originalUrl,
                     body: req.body,
@@ -36,7 +37,7 @@ let send = {
                 error: 'No data'
             })
             // et on renvoie un 404
-            this.send404(null, res)
+            send404(req, res)
         }
     },
 
@@ -46,17 +47,17 @@ let send = {
             error: error,
             stack: error.stack ? error.stack : null
         })
-    },
-
-    send404 (req, res) {
-        const payload = {
-            message: 'Not found'
-        }
-        res.status(404).json(payload)
     }
 }
 
 module.exports = send
+
+function send404 (req, res) {
+    const payload = {
+        message: 'Not found'
+    }
+    res.status(404).json(payload)
+}
 
 function getActionType (item) {
     switch (item) {
