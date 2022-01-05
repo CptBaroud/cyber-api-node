@@ -21,16 +21,10 @@ const rateLimit = require('express-rate-limit')
 
 // Helpers non utiles (Uniquement en DEV)
 const jwt = require('./utils/jwt.utils')
-const mongoose = require("mongoose");
-const SQLDB = require("./db/db.sql");
-const WINSTON_LOGGER = require("./utils/log.utlis");
-const route = require("./routes/index");
-
-let app
 
 // Load the constant from .env file
 require('dotenv').config()
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 // Require logger.js
 const WINSTON_LOGGER = require('./utils/log.utlis');
@@ -79,13 +73,13 @@ SQLDB.authenticate()
         WINSTON_LOGGER.error(error)
     })
 
-app = express();
+const app = express();
 
 // Extrait de la doc
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB or API Gateway, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
+// app.set('trust proxy', 1);
 
-app.set('trust proxy', 1);
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100 // limit each IP to 100 requests per windowMs
@@ -105,7 +99,7 @@ app.use(logger('dev'));
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: false}));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'upload')));
