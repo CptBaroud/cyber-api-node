@@ -14,7 +14,7 @@ let send = {
                 const object = req.baseUrl.replace('/api/', '')
 
                 logger.actions({
-                    message: tokenInfo.mail + ' à ' + getActionVerb(req.method) + ' un ' + getObjectName(object),
+                    message: tokenInfo.mail ? tokenInfo.mail + ' à ' + getActionVerb(req.method) + ' un ' + getObjectName(object) : getActionVerb(req.method) + ' un ' + getObjectName(object) ,
                     id: req.params.id ? req.params.id : req.body._id,
                     type: getActionType(req.method),
                     objet: req.baseUrl.replace('/api/', ''),
