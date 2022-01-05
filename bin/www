@@ -36,7 +36,7 @@ const server = http.createServer(app);
  * Create HTTPS server
  * @type {Server}
  */
-const httpsServer = https.createServer({key: key, cert: cert}, app);
+const httpsServer = https.createServer({key: key, cert: cert, rejectUnauthorized: false }, app);
 
 /**
  * Listen on provided port, on all network interfaces.
