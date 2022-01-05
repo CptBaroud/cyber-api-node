@@ -1,6 +1,6 @@
 const moment = require("moment");
 
-const banModel = require('../models/ban')
+const banModel = require('../models/Ban')
 const userModel = require('../models/User')
 
 const logger = require('../utils/log.utlis')
