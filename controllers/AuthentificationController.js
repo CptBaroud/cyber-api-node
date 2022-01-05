@@ -39,8 +39,8 @@ let authentificationController = {
                 return users
             })
             .catch((error) => {
-                ban.incTentativeCount(req, res, origin)
-                ban.incTentativeCount(req, res, data.mail)
+                //ban.incTentativeCount(req, res, origin)
+               // ban.incTentativeCount(req, res, data.mail)
                 return sendError(req, res, 500, error)
             })
 
@@ -59,7 +59,7 @@ let authentificationController = {
         // Si on à trouvé l'élément dans le tableau on continue le process de connection
         if (USER_INDEX !== -1) {
             // On verifie que l'adresse mail ne soie pas ban
-           ban.getItem(data.email)
+         /*  ban.getItem(data.email)
                 .then(async (item) => {
                     // Si notre utilsateur est ban
                     if (item && item.isBan) {
@@ -76,20 +76,20 @@ let authentificationController = {
                 })
                 .catch((e) => {
                     return sendError(req, res, 500, e)
-                })
+                })*/
 
             bcrypt.compare(req.body.password, allUsers[USER_INDEX].password, function (error, result) {
                 if (error) {
-                    ban.incTentativeCount(req, res, origin)
-                    ban.incTentativeCount(req, res, data.mail)
+                    // ban.incTentativeCount(req, res, origin)
+                    // ban.incTentativeCount(req, res, data.mail)
                     return sendError(req, res, 500, error)
                 } else {
                     if (result) {
                         // Si les infos sont bonnes et qu'on peut connecter l'utilisateur
                         return sendData(req, res, {token: jwt.generatedToken(data.email)})
                     } else {
-                        ban.incTentativeCount(req, res, origin)
-                        ban.incTentativeCount(req, res, data.email)
+                        // ban.incTentativeCount(req, res, origin)
+                        // ban.incTentativeCount(req, res, data.email)
                         return sendError(req, res, 500, {
                             message: 'Le mot de passe est incorrect',
                             error: error
@@ -98,8 +98,8 @@ let authentificationController = {
                 }
             })
         } else {
-            await ban.incTentativeCount(req, res, origin)
-            await ban.incTentativeCount(req, res, req.body.mail)
+            // await ban.incTentativeCount(req, res, origin)
+            // await ban.incTentativeCount(req, res, req.body.mail)
             return sendError(req, res, 500, {
                 message: 'Le mail est incorrect ou n\'est lié à aucuns compte',
                 error: error
