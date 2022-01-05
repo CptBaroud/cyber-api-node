@@ -7,6 +7,7 @@ const user = require('../models/User')
 const { sendData,  sendError } = require("../utils/send.utils");
 const jwt_utils = require('../utils/jwt.utils')
 const { encrypt, decrypt } = require('../utils/crypto.help')
+const ban = require("../controllers/BanController");
 
 const SALT_ROUND = 10
 const USER_ENCRYPTED_FIELDS = ['firstName', 'lastName', 'email']
@@ -66,10 +67,31 @@ let userController = {
         const errors = validationResult(req)
         if (!errors.isEmpty()) return sendError(res, 500, errors)
 
+        // Le problème qu'on rencontre ici c'est que toutes les informations stockées en base de données
+        // Sont chiffrées, donc on ne peut pas faire de where on récupère donc toutes les entrées,
+        // On ne garde que l'essentiel CAD, mail, pswd et la clée de chiffrement
+        const allUsers = await user.findAll({attributes: ['email', 'password', 'encryptedKey'], raw: true})
+            .then((users) => {
+                return users
+            })
+            .catch((error) => {
+                return sendError(req, res, 500, error)
+            })
 
-        const FETCH_USER = await user.findOne({where: {email: req.body.email}})
+        // On dechiffre les mails afin de pouvoir chercher celui qui essaye de se connecter
+        allUsers.forEach((user) => {
+            // On déchiffre la clée récupérée en base de données
+            const decryptedKey = decrypt(user.encryptedKey, user.password)
+            // On déchiffre uniquement le mail
+            user['email'] = decrypt(user['email'], decryptedKey)
+        })
 
-        if (FETCH_USER) {
+        // On cherche le mail de celui qui se connecte, on cherche à récupérer l'index dans le tableau
+        const USER_INDEX = allUsers.findIndex((item) => {
+            return item.email === req.body.email
+        })
+
+        if (USER_INDEX !== -1) {
             return sendError(req, res, 409, {message: 'This email is already used'})
         }
 
