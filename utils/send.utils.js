@@ -8,7 +8,7 @@ let send = {
 
         if (data) {
             if (req.method !== 'GET') {
-                const tokenInfo = jwt.decode(req.headers.authorization)
+                const tokenInfo = req.headers.authorization ? jwt.decode(req.headers.authorization) : {mail: ''}
                 // On recupère l'objet de la requete -> le type
                 // ex : Ingredients
                 const object = req.baseUrl.replace('/api/', '')
