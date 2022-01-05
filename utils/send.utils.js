@@ -8,20 +8,20 @@ let send = {
 
         if (data) {
             if (req.method !== 'GET') {
-                const tokenInfo = req.headers.authorization ? jwt.decode(req.headers.authorization) : {mail: ''}
+                const tokenInfo = req.headers.authorization ? jwt.decode(req.headers.authorization) : null
                 // On recupère l'objet de la requete -> le type
                 // ex : Ingredients
                 const object = req.baseUrl.replace('/api/', '')
 
                 logger.actions({
-                    message: tokenInfo.mail ? tokenInfo.mail + ' à ' + getActionVerb(req.method) + ' un ' + getObjectName(object) : getActionVerb(req.method) + ' un ' + getObjectName(object) ,
+                    message: tokenInfo ? tokenInfo.mail + ' à ' + getActionVerb(req.method) + ' un ' + getObjectName(object) : getActionVerb(req.method) + ' un ' + getObjectName(object) ,
                     id: req.params.id ? req.params.id : req.body._id,
                     type: getActionType(req.method),
                     objet: req.baseUrl.replace('/api/', ''),
                     originalUrl: req.originalUrl,
                     body: req.body,
                     ip: ip,
-                    user: tokenInfo.mail,
+                    user: tokenInfo ? tokenInfo.mail : null,
                 })
             }
             res.status(200).send(data)
