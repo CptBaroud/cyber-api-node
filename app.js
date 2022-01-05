@@ -22,9 +22,6 @@ const rateLimit = require('express-rate-limit')
 // Helpers non utiles (Uniquement en DEV)
 const jwt = require('./utils/jwt.utils')
 
-// Génération de la doc
-const swaggerUi = require('swagger-ui-express');
-
 // Load the constant from .env file
 require('dotenv').config()
 
@@ -32,7 +29,7 @@ require('dotenv').config()
 const WINSTON_LOGGER = require('./utils/log.utlis');
 
 if (process.env.DEV) {
-    log.info(jwt.generatedToken())
+    log.info(jwt.generatedToken('test@test.fr'))
 }
 
 // Mongodb connection
@@ -77,9 +74,6 @@ SQLDB.authenticate()
 
 const app = express();
 
-// Swagger doc generation
-const swaggerDefinition = require('./OpenApiDocumentation')
-
 // Extrait de la doc
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB or API Gateway, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
@@ -108,8 +102,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'upload')));
-
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 
 // On load toutes les routes
 const route = require('./routes/index')

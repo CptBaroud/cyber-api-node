@@ -51,3 +51,84 @@ error: Dec-23-2021 09:16:15: 	undefined
 error: Dec-23-2021 09:17:48: 	Erreur de connexion a SQL Server
 error: Dec-23-2021 09:17:48: 	undefined
 info: Dec-23-2021 09:18:28: 	User gurvan.seveno@gmail.com connected from undefined
+actions: Jan-03-2022 10:52:44: 	::1 à ajouté un fabricationProcess
+actions: Jan-03-2022 15:03:27: 	::1 à ajouté un users
+actions: Jan-03-2022 15:04:53: 	::1 à ajouté un users
+actions: Jan-03-2022 15:10:49: 	::1 à ajouté un ingredient
+actions: Jan-03-2022 15:13:12: 	::1 à ajouté un ingredient
+error: Jan-03-2022 15:18:53: 	Une erreur est survenue lors de l'envois des données
+error: Jan-03-2022 15:19:30: 	Une erreur est survenue lors de l'envois des données
+error: Jan-03-2022 15:20:47: 	Une erreur est survenue lors de l'envois des données
+actions: Jan-03-2022 15:22:40: 	::1 à éditer un ingredient
+actions: Jan-03-2022 15:27:08: 	::1 à éditer un ingredient
+actions: Jan-03-2022 15:30:05: 	::1 à éditer un ingredient
+actions: Jan-03-2022 15:33:02: 	::1 à supprimé un ingredient
+error: Jan-03-2022 15:33:23: 	Une erreur est survenue lors de l'envois des données
+error: Jan-03-2022 15:48:15: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 15:48:15: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 15:48:15: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 15:48:15: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 15:48:15: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 15:48:15: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:00:07: 	User [object Object]) tried to connect from undefined with incorrect mail
+error: Jan-03-2022 16:02:15: 	User [object Object]) tried to connect from undefined with incorrect mail
+error: Jan-03-2022 16:02:47: 	User [object Object]) tried to connect from undefined with incorrect mail
+error: Jan-03-2022 16:02:56: 	User [object Object]) tried to connect from undefined with incorrect mail
+error: Jan-03-2022 16:03:51: 	User [object Object]) tried to connect from undefined with incorrect mail
+error: Jan-03-2022 16:03:55: 	User [object Object]) tried to connect from undefined with incorrect mail
+info: Jan-03-2022 16:04:08: 	User gurvan.seveno@gmail.com connected from undefined
+actions: Jan-03-2022 16:04:08: 	::1 à ajouté un auth
+error: Jan-03-2022 16:04:34: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:04:34: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:04:34: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:04:34: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:04:34: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:04:34: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:04:40: 	Une erreur est survenue lors de l'envois des données
+actions: Jan-03-2022 16:04:48: 	::1 à éditer un fabricationProcess
+actions: Jan-03-2022 16:06:48: 	::1 à éditer un fabricationProcess
+error: Jan-03-2022 16:06:52: 	Une erreur est survenue lors de l'envois des données
+actions: Jan-03-2022 16:06:55: 	::1 à supprimé un fabricationProcess
+error: Jan-03-2022 16:07:01: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:07:01: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:07:01: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:07:01: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:07:01: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:07:01: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:08:22: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:08:22: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:08:22: 	Une erreur est survenue lors du dechiffrage des données RSA
+actions: Jan-03-2022 16:20:42: 	::1 à ajouté un frisbee
+error: Jan-03-2022 16:20:46: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:20:46: 	Une erreur est survenue lors du dechiffrage des données RSA
+error: Jan-03-2022 16:20:46: 	Une erreur est survenue lors du dechiffrage des données RSA
+actions: Jan-03-2022 16:23:08: 	::1 à éditer un frisbee
+actions: Jan-03-2022 16:24:55: 	::1 à éditer un frisbee
+info: Jan-04-2022 10:13:11: 	User gurvan.seveno@gmail.com connected from undefined
+actions: Jan-04-2022 10:13:11: 	test@test.fr à ajouté un auth
+actions: Jan-04-2022 10:15:02: 	test@test.fr à ajouté un ingredient
+actions: Jan-04-2022 10:16:32: 	test@test.fr à éditer un ingredient
+actions: Jan-04-2022 10:42:30: 	test@test.fr à éditer un ingredient
+info: Jan-04-2022 10:49:59: 	User gurvan.seveno@gmail.com connected from undefined
+actions: Jan-04-2022 10:49:59: 	test@test.fr à ajouté un auth
+info: Jan-04-2022 10:50:20: 	User gurvan.seveno@gmail.com connected from undefined
+actions: Jan-04-2022 10:50:20: 	test@test.fr à ajouté un auth
+actions: Jan-04-2022 11:00:57: 	test@test.fr à ajouté un auth
+actions: Jan-04-2022 14:22:05: 	test@test.fr à ajouté un auth
+info: Jan-04-2022 14:23:40: 	User undefined has been added to ban list 
+info: Jan-04-2022 14:26:06: 	User gurvan.seveno@gmail.com has been added to ban list 
+info: Jan-04-2022 14:26:26: 	User ::ffff:127.0.0.1 has been added to ban list 
+info: Jan-04-2022 14:26:26: 	User gurvan.seveno@gmail.com has been added to ban list 
+info: Jan-04-2022 14:27:22: 	User ::1 has been added to ban list 
+actions: Jan-04-2022 14:36:47: 	test@test.fr à ajouté un auth
+info: Jan-04-2022 14:36:55: 	User undefined has been added to ban list 
+actions: Jan-04-2022 14:38:55: 	test@test.fr à ajouté un auth
+actions: Jan-04-2022 14:39:40: 	test@test.fr à ajouté un auth
+actions: Jan-04-2022 14:46:51: 	test@test.fr à ajouté un auth
+info: Jan-04-2022 14:46:58: 	User ::1 has been added to ban list 
+actions: Jan-04-2022 14:53:18: 	test@test.fr à ajouté un auth
+actions: Jan-04-2022 16:14:01: 	test@test.fr à ajouté un auth
+actions: Jan-04-2022 16:15:30: 	test@test.fr à ajouté un auth
+actions: Jan-04-2022 16:17:21: 	test@test.fr à ajouté un auth
+actions: Jan-05-2022 08:44:55: 	test@test.fr à ajouté un users
+actions: Jan-05-2022 08:48:32: 	test@test.fr à ajouté un users
