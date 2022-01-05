@@ -58,7 +58,6 @@ mongo
 
 const mongoose = require('mongoose');
 console.log(mongoose.connection.readyState);
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 // On doit attendre que le .env soit load
 const SQLDB = require("./db/db.sql");
