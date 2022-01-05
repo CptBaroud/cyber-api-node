@@ -26,8 +26,8 @@ try {
     log.error(e)
 }
 
-let port = normalizePort(process.env.HTTP_PORT || process.env.HTTPS_PORT);
-app.set('port', port);
+// let port = normalizePort(process.env.HTTP_PORT || process.env.HTTPS_PORT);
+// app.set('port', port);
 
 /**
  * Create HTTP server.
@@ -58,7 +58,6 @@ const httpsServer = https
 httpsServer.on('error', onError);
 httpsServer.on('listening', onListening);
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 /**
  * Normalize a port into a number, string, or false.
