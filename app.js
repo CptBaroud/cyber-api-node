@@ -31,100 +31,87 @@ let app
 // Load the constant from .env file
 require('dotenv').config()
 
-init()
-    .then(() => {
-        // Require logger.js
-        const WINSTON_LOGGER = require('./utils/log.utlis');
 
-        if (process.env.DEV) {
-            log.info(jwt.generatedToken('test@test.fr'))
-        }
+// Require logger.js
+const WINSTON_LOGGER = require('./utils/log.utlis');
+
+if (process.env.DEV) {
+    log.info(jwt.generatedToken('test@test.fr'))
+}
 
 // Mongodb connection
-        const MONGO_OPTION = process.env.DEV ?
-            {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            } : {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-                auth: {
-                    authSource: 'admin'
-                },
-                user: process.env.MONGODB_LOGIN,
-                password: process.env.MONGODB_PSWD
-            }
+const MONGO_OPTION = process.env.DEV ?
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    } : {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        auth: {
+            authSource: 'admin'
+        },
+        user: process.env.MONGODB_LOGIN,
+        password: process.env.MONGODB_PSWD
+    }
 
-        mongo
-            .connect(process.env.MONGODB_LINK, MONGO_OPTION, (err) => {
-                if (!err) {
-                    log.ok('Connexion a mongodb')
-                } else {
-                    log.error(err)
-                }
-            })
+mongo
+    .connect(process.env.MONGODB_LINK, MONGO_OPTION, (err) => {
+        if (!err) {
+            log.ok('Connexion a mongodb')
+        } else {
+            log.error(err)
+        }
+    })
 
-        const mongoose = require('mongoose');
-        console.log(mongoose.connection.readyState);
+const mongoose = require('mongoose');
+console.log(mongoose.connection.readyState);
 
 // On doit attendre que le .env soit load
-        const SQLDB = require("./db/db.sql");
+const SQLDB = require("./db/db.sql");
 
-        SQLDB.authenticate()
-            .then(() => {
-                log.ok('Connexion a SQL Server')
-            })
-            .catch((error) => {
-                log.error(error)
-                WINSTON_LOGGER.error('Erreur de connexion a SQL Server')
-                WINSTON_LOGGER.error(error)
-            })
+SQLDB.authenticate()
+    .then(() => {
+        log.ok('Connexion a SQL Server')
+    })
+    .catch((error) => {
+        log.error(error)
+        WINSTON_LOGGER.error('Erreur de connexion a SQL Server')
+        WINSTON_LOGGER.error(error)
+    })
 
-        app = express();
+app = express();
 
 // Extrait de la doc
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB or API Gateway, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
-// app.set('trust proxy', 1);
 
-        const limiter = rateLimit({
-            windowMs: 15 * 60 * 1000, // 15 minutes
-            max: 100 // limit each IP to 100 requests per windowMs
-        });
+app.set('trust proxy', 1);
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+});
 
 //  apply to all requests
-        app.use(limiter);
+app.use(limiter);
 
 // Avoid cross scripting
-        app.use(cors())
+app.use(cors())
 // Setting various HTTP headers
-        app.use(helmet())
+app.use(helmet())
 // Prevent from NoSQL injection
-        app.use(mongoSanitize());
-        app.use(logger('dev'));
+app.use(mongoSanitize());
+app.use(logger('dev'));
 // Limite de taille des fichiers
-        app.use(express.json({limit: '50mb'}));
-        app.use(express.urlencoded({limit: '50mb', extended: false}));
-        app.use(express.json());
-        app.use(express.urlencoded({ extended: false }));
-        app.use(cookieParser());
-        app.use(express.static(path.join(__dirname, 'public')));
-        app.use(express.static(path.join(__dirname, 'upload')));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: false}));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'upload')));
 
 // On load toutes les routes
-        const route = require('./routes/index')
-        app.use('/api', route)
-    })
+const route = require('./routes/index')
+app.use('/api', route)
 
 module.exports = app;
-
-async function init () {
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-    await sleep(4000)
-}
-
-function sleep(ms) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
