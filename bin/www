@@ -13,6 +13,7 @@ const https = require("https");
 
 let key
 let cert
+let ca
 
 /**
  * On load les fichiers de permissions
@@ -20,6 +21,7 @@ let cert
 try {
     key = fs.readFileSync(process.env.KEY);
     cert = fs.readFileSync(process.env.CERT);
+    ca = fs.readFileSync(process.env.CA)
 } catch (e) {
     log.error(e)
 }
@@ -43,7 +45,12 @@ server.on('listening', onListening);
  * @type {Server}
  */
 const httpsServer = https
-    .createServer({key: key, cert: cert, rejectUnauthorized: false}, app)
+    .createServer({
+        key: key,
+        cert: cert,
+        ca: ca,
+        rejectUnauthorized: true
+    }, app)
     .listen(process.env.HTTPS_PORT, function () {
         log.success('HTTPS server started')
     });
