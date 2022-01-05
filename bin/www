@@ -24,47 +24,19 @@ try {
   log.error(e)
 }
 
+let port = normalizePort(process.env.HTTP_PORT || process.env.HTTPS_PORT);
+app.set('port', port);
+
 /**
  * Create HTTP server.
  */
 const server = http.createServer(app);
-const httpIo = require('socket.io')(server, {
-  cors: {
-    origin: [process.env.API_LINK, process.env.CLIENTS_LINK, process.env.COMMERCIAL_LINK, process.env.DELIVERY_LINK, process.env.RESTAURANT_LINK, process.env.DEVELOPPER_LINK, process.env.TECHNIC_LINK, process.env.CLIENTS_LINK2],
-    methods: ["GET", "POST", "PUT", "DELETE"]
-  }
-})
-
-httpIo.on('connection', (socket) => {
-  log.info('Http socket connected trought : ' + socket.id)
-  httpIo.emit('news', 'Nouvelle connection http au socket ' + socket.id)
-  //socket.broadcast.emit('news', 'New user connected')
-  socket.on('event', function (data) {
-    log.info(data)
-    httpIo.emit('event', data)
-  })
-})
-
-app.httpIo = httpIo;
 
 /**
  * Create HTTPS server
  * @type {Server}
  */
 const httpsServer = https.createServer({key: key, cert: cert}, app);
-const httpsIo = require('socket.io')(httpsServer, {
-  cors: {
-    origin: [process.env.API_LINK, process.env.CLIENTS_LINK, process.env.COMMERCIAL_LINK, process.env.DELIVERY_LINK, process.env.RESTAURANT_LINK, process.env.DEVELOPPER_LINK, process.env.TECHNIC_LINK, process.env.CLIENTS_LINK2],
-    methods: ["GET", "POST", "PUT", "DELETE"]
-  }
-})
-
-httpsIo.on('connection', (socket) => {
-  log.info('Https socket connected trought : ' + socket.id)
-  httpsIo.emit('news', 'Nouvelle connection https au socket ' + socket.id)
-})
-
-app.httpsIo = httpsIo;
 
 /**
  * Listen on provided port, on all network interfaces.
